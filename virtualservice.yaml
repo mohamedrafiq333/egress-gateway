@@ -1,3 +1,7 @@
+# Below Hostname "istio-egressgateway.istio-system.svc.cluster.local" is given, 
+# assuming your gateway pods are running in istio-system namespace.
+# Else replace "istio-system" based on your setup.
+
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
