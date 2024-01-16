@@ -1,0 +1,79 @@
+# Below Hostname "istio-egressgateway.istio-system.svc.cluster.local" is given, 
+# assuming your gateway pods are running in istio-system namespace.
+# Else replace "istio-system" based on your setup.
+
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ibm-vs
+  namespace: <app_namespace>
+spec:
+  exportTo:
+  - .
+  - istio-system
+  gateways:
+  - mesh
+  - istio-egressgateway
+  hosts:
+  - ibm.com
+  tls:
+  - match:
+    - gateways:
+      - mesh
+      port: 443
+      sniHosts:
+      - ibm.com
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 443
+  - match:
+    - gateways:
+      - istio-egressgateway
+      port: 443
+      sniHosts:
+      - ibm.com
+    route:
+    - destination:
+        host: ibm.com
+        port:
+          number: 443
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ibm-vs
+  namespace: <app_namespace>
+spec:
+  exportTo:
+  - .
+  - istio-system
+  gateways:
+  - mesh
+  - istio-egressgateway
+  hosts:
+  - ibm.com
+  tls:
+  - match:
+    - gateways:
+      - mesh
+      port: 443
+      sniHosts:
+      - ibm.com
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 443
+  - match:
+    - gateways:
+      - istio-egressgateway
+      port: 443
+      sniHosts:
+      - ibm.com
+    route:
+    - destination:
+        host: ibm.com
+        port:
+          number: 443
