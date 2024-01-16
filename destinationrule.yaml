@@ -1,0 +1,9 @@
+# Below Hostname is given, assuming your gateway pods are running in istio-system namespace.
+#Else replace "istio-system" based on your setup.
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: dr-egressgateway
+  namespace: <app_namespace>
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
